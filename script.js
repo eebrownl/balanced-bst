@@ -26,7 +26,41 @@ class Tree {
         return root;
     }
 
+    findValue(value, root = this.root) {
+        if(root === null) {
+            return false;
+        }
+        
+        if(value === root) {
+            return root;
+        }
+
+        if(value < root.data) {
+            return this.findValue(value, root.left)
+        } else if(value > root.data) {
+            return this.findValue(value, root.right)
+        }
+        
+        return root;
+    }
+
+    insertNew(value, root = this.root) {
+        if(root == null) {
+            return (root = new Node(value));
+        }
+
+        if(root.data > value) {
+            root.left = this.insertNew(value, root.left)
+        } else {
+            root.right = this.insertNew(value, root.right);
+        }
+
+        return root
+    }
+
 }
+
+
 
 
 function mergeSort(unsortedArray) {
@@ -62,6 +96,5 @@ function removeDuplicates(array) {
 let testArray = [4,1,2,9,5,7,3,8,8,8,8]
 let testTree = new Tree(testArray)
 
-
-console.log(testTree)
+console.log(testTree.insertNew(10))
 

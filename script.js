@@ -58,10 +58,50 @@ class Tree {
         return root
     }
 
+    remove(value) {
+        const removeNode = (node, value) => {
+            if(!node) {
+                return null;
+            }
+
+            if(value === node.data) {
+                if(!node.left && !node.right) {
+                    return null;
+                }
+
+                if(!node.left) {
+                    return node.right;
+                }
+
+                if(!node.right) {
+                    return node.left
+                }
+                //I've handled the easy cases. Need to insert code for when there are two children.
+
+                
+            } else if (value < node.data) {
+                node.left = removeNode(node.left, value);
+                return node;
+            } else {
+                node.right = removeNode(node.right, value);
+                return node;
+            }
+        }
+        this.root = removeNote(this.root, value)
+    }
+
+
 }
 
 
-
+// function minValue(root) {
+//     let min = root.data; 
+//     while(root !== null) {
+//         min = root.data; 
+//         root = root.left
+//     }
+//     return min;
+// }
 
 function mergeSort(unsortedArray) {
     if (unsortedArray.length < 2) {
@@ -93,8 +133,9 @@ function removeDuplicates(array) {
     return [...new Set(array)];
 }
 
-let testArray = [4,1,2,9,5,7,3,8,8,8,8]
+let testArray = [4,1,2,9,5,3,7,8]
 let testTree = new Tree(testArray)
 
-console.log(testTree.insertNew(10))
+console.log(testTree)
+
 

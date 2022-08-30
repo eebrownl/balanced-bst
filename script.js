@@ -58,51 +58,79 @@ class Tree {
         return root
     }
 
-    remove(value) {
-        const removeNode = (node, value) => {
-            if(!node) {
-                return null;
+    inOrder() {
+        let visited = [];
+        let current = this.root;
+
+        let traverse = node => {
+            if(node.left) traverse(node.left);
+            visited.push(node.data);
+
+            if(node.right) traverse(node.right);
+        };
+
+        traverse(current);
+        return visited;
+    }
+
+    preOrder() {
+        let visited = [];
+        let current = this.root;
+
+        let traverse = node => {
+            visited.push(node.data);
+            if (node.left) {
+                traverse(node.left)
             }
-
-            if(value === node.data) {
-                if(!node.left && !node.right) {
-                    return null;
-                }
-
-                if(!node.left) {
-                    return node.right;
-                }
-
-                if(!node.right) {
-                    return node.left
-                }
-                //I've handled the easy cases. Need to insert code for when there are two children.
-
-                
-            } else if (value < node.data) {
-                node.left = removeNode(node.left, value);
-                return node;
-            } else {
-                node.right = removeNode(node.right, value);
-                return node;
+            if (node.right) {
+                traverse(node.right)
             }
         }
-        this.root = removeNote(this.root, value)
+
+        traverse(current);
+        return visited;
     }
+
+    postOrder() {
+        let visited = [];
+        let current = this.root; 
+
+        let traverse = node => {
+            if(node.left) {
+                traverse(node.left);
+            }
+            if(node.right) {
+                traverse(node.right);
+            }
+            visited.push(node.data)
+        };
+        traverse(current);
+        return visited;
+    }
+
+    BreadthFirstSearch() {
+        let visited = [],
+        queue = [], 
+        current = this.root;
+
+        queue.push(current);
+        while (queue.length) {
+            current = queue.shift();
+            visited.push(current.data);
+
+            if(current.left) {
+                queue.push(current.left)
+            }
+            if(current.right) {
+                queue.push(current.right);
+            }
+        }
+        return visited;
+    }
+    
 
 
 }
-
-
-// function minValue(root) {
-//     let min = root.data; 
-//     while(root !== null) {
-//         min = root.data; 
-//         root = root.left
-//     }
-//     return min;
-// }
-
 function mergeSort(unsortedArray) {
     if (unsortedArray.length < 2) {
         return unsortedArray;
@@ -137,5 +165,7 @@ let testArray = [4,1,2,9,5,3,7,8]
 let testTree = new Tree(testArray)
 
 console.log(testTree)
+console.log(testTree.postOrder())
+console.log(testTree.BreadthFirstSearch())
 
 

@@ -127,6 +127,7 @@ class Tree {
         }
         return visited;
     }
+
     
 
 
@@ -161,11 +162,5 @@ function removeDuplicates(array) {
     return [...new Set(array)];
 }
 
-let testArray = [4,1,2,9,5,3,7,8]
-let testTree = new Tree(testArray)
-
-console.log(testTree)
-console.log(testTree.postOrder())
-console.log(testTree.BreadthFirstSearch())
 
 
